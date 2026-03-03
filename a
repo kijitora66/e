@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初道 Fishing Game</title>
+    <style>
+        :root {
+            --water-color: #1e90ff;
+            --sand-color: #f4a460;
+        }
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #game-container {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            background: linear-gradient(to bottom, #87ceeb 30%, var(--water-color) 30%);
+            border: 5px solid #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            cursor: crosshair;
+            overflow: hidden;
+        }
+        /* UI要素 */
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            color: white;
+            text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+            pointer-events: none;
+            z-index: 10;
+        }
+        #message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffef00;
+            text-shadow: 3px 3px 0 #000;
+            display: none;
+            z-index: 20;
+        }
+        /* 釣り針 */
+        #hook {
+            position: absolute;
+            width: 4px;
+            height: 20px;
+            background: #fff;
+            border-radius: 2px;
+            display: none;
+            transition: transform 0.1s;
+        }
+        #hook::after {
+            content: 'J';
+            position: absolute;
+            bottom: -15px;
+            left: -5px;
+            color: #ddd;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        /* 魚 */
+        .fish {
+            position: absolute;
+            font-size: 30px;
+            transition: left 2s linear, top 2s linear;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <div id="ui">
+        <h2>初道 Fishing</h2>
+        <div>SCORE: <span id="score">0</span></div>
+    </div>
+    <div id="message">HIT!</div>
+    <div id="hook"></div>
+</div>
+
+<script>
+    const container = document.getElementById('game-container');
+    const hook = document.getElementById('hook');
+    const scoreDisplay = document.getElementById('score');
+    const message = document.getElementById('message');
